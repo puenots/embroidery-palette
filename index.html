@@ -27,13 +27,16 @@
   <h1>刺繍糸 15色 — モチーフ汎用パレット</h1>
   <p class="sub">混色できない前提で「色相環を均等に埋める＋穴をなくす」設計。青を3→2に絞り、中間グリーンと肌/タンを追加。</p>
 
+  <p class="sub" style="margin-top:18px;font-weight:600;color:#1a1a1a;">確定 14色</p>
   <div class="grid" id="grid"></div>
 
   <div class="legend">
-    <span class="tag tag-new">NEW</span> 今回の追加（ロイヤルブルー/ミントと交換）
     <span class="tag tag-keep">特殊色</span> 混色不可・死守<br>
-    <b>陰影ペア:</b> 若葉ライム＋中間グリーン＋深緑（緑3段） / シアン＋紺（空・水） / 肌タン＋茶（肌・木） / ピンク＋赤（花・頬）
+    <b>陰影ペア:</b> ライム＋深緑（緑2段） / シアン＋紺（空・水） / 肌タン＋茶（肌・木） / ピンク＋赤（花・頬）
   </div>
+
+  <p class="sub" style="margin-top:28px;font-weight:600;color:#1a1a1a;">残り1枠の候補 — どれか1色を15番に</p>
+  <div class="grid" id="cand"></div>
 
 <script>
   const colors = [
@@ -48,21 +51,27 @@
     { n:"ピンク",        hex:"FE758F", role:"花・頬・差し色", tag:"" },
     { n:"紫",            hex:"5C1E7E", role:"花・夜・差し色", tag:"" },
     { n:"ライム",        hex:"C0FF00", role:"テニスボール・蛍光・葉明部", tag:"keep" },
-    { n:"中間グリーン",  hex:"3AA655", role:"草・芝・普通の葉", tag:"new" },
     { n:"深緑",          hex:"016E34", role:"葉の暗部・常緑", tag:"" },
     { n:"シアン",        hex:"0289CA", role:"空・水面", tag:"" },
     { n:"紺",            hex:"1E254F", role:"影の青・夜空", tag:"" },
   ];
+  const candidates = [
+    { n:"ゴールド/からし", hex:"D4A017", role:"エンブレム・星・メダル・秋・食べ物" },
+    { n:"ワインレッド",    hex:"7A1F2B", role:"ヴィンテージ・ワイン・落ち着いた赤" },
+    { n:"チャコール",      hex:"4A4F54", role:"金属・石・服・中間の灰色（影）" },
+  ];
   const tagHtml = t => t==="new" ? '<span class="tag tag-new">NEW</span>'
                     : t==="keep" ? '<span class="tag tag-keep">特殊色</span>' : '';
-  document.getElementById('grid').innerHTML = colors.map((c,i)=>`
+  const rowHtml = (c,i,showNum) => `
     <div class="row">
       <div class="sw" style="background:#${c.hex}"></div>
-      <div class="num">${String(i+1).padStart(2,'0')}</div>
+      <div class="num">${showNum ? String(i+1).padStart(2,'0') : '＋'}</div>
       <div class="name">${c.n}${tagHtml(c.tag)}</div>
       <div class="role">${c.role}</div>
       <div class="hex">#${c.hex}</div>
-    </div>`).join('');
+    </div>`;
+  document.getElementById('grid').innerHTML = colors.map((c,i)=>rowHtml(c,i,true)).join('');
+  document.getElementById('cand').innerHTML = candidates.map((c,i)=>rowHtml(c,i,false)).join('');
 </script>
 </body>
 </html>
