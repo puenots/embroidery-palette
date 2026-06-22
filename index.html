@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>刺繍糸15色 モチーフ汎用パレット</title>
+<title>刺繍糸15色（無印準拠）</title>
 <style>
   :root { font-family: -apple-system, "Hiragino Sans", "Helvetica Neue", sans-serif; }
   body { margin: 0; background: #fafafa; color: #1a1a1a; padding: 32px; }
@@ -17,49 +17,46 @@
   .role { flex: 1.4; color: #777; font-size: 12px; }
   .hex { font-family: "SF Mono", Menlo, monospace; font-size: 12px; color: #555; padding-right: 14px; text-transform: uppercase; }
   .tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
-  .tag-new { background: #ffe9c2; color: #9a5b00; }
-  .tag-keep { background: #e4eefc; color: #2a5a9a; }
   .tag-metal { background: linear-gradient(135deg,#e9c46a,#fff3c0,#d4af37); color: #6b4e00; }
   .legend { margin-top: 18px; font-size: 12px; color: #666; line-height: 1.7; }
   .legend b { color: #1a1a1a; }
 </style>
 </head>
 <body>
-  <h1>刺繍糸 15色 — モチーフ汎用パレット</h1>
-  <p class="sub">混色できない前提で、色相環を均等に埋めつつ、無印の実用色を参考にメタリック（金・銀）を採用した15色。</p>
+  <h1>刺繍糸 15色 — 無印良品 準拠</h1>
+  <p class="sub">無印のラインナップ・並び順をそのまま採用（並び＝おおむね需要順）。グレー/紫/シアン等は無印が不採用なので外し、ベージュ・エンジ・金・銀を採用。</p>
 
-  <p class="sub" style="margin-top:18px;font-weight:600;color:#1a1a1a;">確定 15色</p>
+  <p class="sub" style="margin-top:18px;font-weight:600;color:#1a1a1a;">確定 15色（無印と同一）</p>
   <div class="grid" id="grid"></div>
 
   <div class="legend">
-    <span class="tag tag-keep">特殊色</span> 混色不可・死守 ／ <span class="tag tag-metal">メタリック</span> 他色で再現不可・装飾の華<br>
-    <b>陰影ペア:</b> ライム＋深緑（緑2段） / シアン＋青（水色・青） / 肌タン＋茶（肌・木） / ピンク＋赤（花・頬）<br>
-    <b>メモ:</b> マットなグレーは外し、その役割は銀に統合（無印と同じ考え方）。
+    <span class="tag tag-metal">メタリック</span> 他色で再現不可・装飾の華<br>
+    <b>無印に無くて今回外した色:</b> グレー / 肌タン(→ベージュで代替) / 橙以外の暖色アクセント / 紫 / 深緑(→みどり) / 濃い青(→あお) / 蛍光ライム(→きみどり)<br>
+    <b>注意:</b> きみどり は標準的な黄緑で、テニスボール等の<b>蛍光ライムではない</b>。蛍光が要るなら1色だけ差し替え要検討。
   </div>
 
 <script>
-  const GOLD   = "linear-gradient(135deg,#a67c00 0%,#ffd75e 24%,#d4af37 50%,#fff0a8 70%,#b8860b 100%)";
+  const GOLD   = "linear-gradient(135deg,#a67c00 0%,#ffd75e 24%,#c8a028 50%,#fff0a8 70%,#9c7a12 100%)";
   const SILVER = "linear-gradient(135deg,#8e9192 0%,#ffffff 28%,#c4c7c8 52%,#eaecee 72%,#9aa0a1 100%)";
+  // 無印の並び順（左上→右下）をそのまま 1〜15
   const colors = [
-    { n:"白",      hex:"FFFFFF", role:"ハイライト・目・白地", tag:"" },
-    { n:"黒",      hex:"000000", role:"輪郭・最暗部", tag:"" },
-    { n:"肌/タン", hex:"E8B98A", role:"肌・木・パン・動物", tag:"" },
-    { n:"茶",      hex:"63351D", role:"髪・木・濃影", tag:"" },
-    { n:"黄",      hex:"F5EA43", role:"花・光・食べ物", tag:"" },
-    { n:"橙",      hex:"E76A00", role:"果実・夕日", tag:"" },
-    { n:"赤",      hex:"C61815", role:"花・赤系全般", tag:"" },
-    { n:"ピンク",  hex:"FE758F", role:"花・頬・差し色", tag:"" },
-    { n:"紫",      hex:"5C1E7E", role:"花・夜・差し色", tag:"" },
-    { n:"ライム",  hex:"C0FF00", role:"テニスボール・蛍光・葉明部", tag:"keep" },
-    { n:"深緑",    hex:"016E34", role:"葉の暗部・常緑", tag:"" },
-    { n:"シアン",  hex:"0289CA", role:"空・水面・水色", tag:"" },
-    { n:"青",      hex:"0D47A1", role:"青系全般・空・海", tag:"" },
-    { n:"銀",      hex:"C4C7C8", role:"金属・銀・グレー役・装飾", tag:"metal", metal:SILVER },
-    { n:"金",      hex:"D4AF37", role:"エンブレム・星・装飾文字・金属", tag:"metal", metal:GOLD },
+    { n:"ピンク",   hex:"EA8FAD", role:"花・頬・差し色" },
+    { n:"あか",     hex:"E50012", role:"赤系全般" },
+    { n:"だいだい", hex:"EF7E00", role:"果実・夕日・橙" },
+    { n:"きいろ",   hex:"F2D200", role:"花・光・食べ物" },
+    { n:"きみどり", hex:"95C11F", role:"若葉・草・黄緑" },
+    { n:"みどり",   hex:"009A44", role:"葉・常緑" },
+    { n:"みずいろ", hex:"45BCC4", role:"空・水・水色" },
+    { n:"あお",     hex:"1B2A6B", role:"青系全般・海・夜" },
+    { n:"くろ",     hex:"000000", role:"輪郭・最暗部" },
+    { n:"エンジ",   hex:"97233F", role:"落ち着いた赤・ヴィンテージ" },
+    { n:"茶",       hex:"8A4B1A", role:"髪・木・動物" },
+    { n:"ベージュ", hex:"D2B58B", role:"肌・木・生成り・薄茶" },
+    { n:"金",       hex:"C8A028", role:"エンブレム・星・装飾文字", tag:"metal", metal:GOLD },
+    { n:"銀",       hex:"BCBEC0", role:"金属・銀・グレー役・装飾", tag:"metal", metal:SILVER },
+    { n:"しろ",     hex:"FFFFFF", role:"ハイライト・白地" },
   ];
-  const tagHtml = t => t==="new"  ? '<span class="tag tag-new">NEW</span>'
-                    : t==="keep"  ? '<span class="tag tag-keep">特殊色</span>'
-                    : t==="metal" ? '<span class="tag tag-metal">メタリック</span>' : '';
+  const tagHtml = t => t==="metal" ? '<span class="tag tag-metal">メタリック</span>' : '';
   const rowHtml = (c,i) => `
     <div class="row">
       <div class="sw" style="background:${c.metal || '#'+c.hex}"></div>
