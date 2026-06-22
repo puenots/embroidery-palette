@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刺繍糸15色 モチーフ汎用パレット</title>
+<style>
+  :root { font-family: -apple-system, "Hiragino Sans", "Helvetica Neue", sans-serif; }
+  body { margin: 0; background: #fafafa; color: #1a1a1a; padding: 32px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: #666; font-size: 13px; margin: 0 0 24px; }
+  .grid { display: flex; flex-direction: column; max-width: 560px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
+  .row { display: flex; align-items: center; height: 46px; }
+  .sw { width: 46px; align-self: stretch; flex: 0 0 46px; }
+  .num { width: 34px; text-align: center; color: #999; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .name { flex: 1; padding-left: 12px; font-size: 14px; font-weight: 600; }
+  .role { flex: 1.4; color: #777; font-size: 12px; }
+  .hex { font-family: "SF Mono", Menlo, monospace; font-size: 12px; color: #555; padding-right: 14px; text-transform: uppercase; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+  .tag-new { background: #ffe9c2; color: #9a5b00; }
+  .tag-keep { background: #e4eefc; color: #2a5a9a; }
+  .legend { margin-top: 18px; font-size: 12px; color: #666; line-height: 1.7; }
+  .legend b { color: #1a1a1a; }
+</style>
+</head>
+<body>
+  <h1>刺繍糸 15色 — モチーフ汎用パレット</h1>
+  <p class="sub">混色できない前提で「色相環を均等に埋める＋穴をなくす」設計。青を3→2に絞り、中間グリーンと肌/タンを追加。</p>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="legend">
+    <span class="tag tag-new">NEW</span> 今回の追加（ロイヤルブルー/ミントと交換）
+    <span class="tag tag-keep">特殊色</span> 混色不可・死守<br>
+    <b>陰影ペア:</b> 若葉ライム＋中間グリーン＋深緑（緑3段） / シアン＋紺（空・水） / 肌タン＋茶（肌・木） / ピンク＋赤（花・頬）
+  </div>
+
+<script>
+  const colors = [
+    { n:"白",            hex:"FFFFFF", role:"ハイライト・目・白地", tag:"" },
+    { n:"黒",            hex:"000000", role:"輪郭・最暗部", tag:"" },
+    { n:"グレー",        hex:"B8BAB7", role:"金属・石・陰", tag:"" },
+    { n:"肌/タン",       hex:"E8B98A", role:"肌・木・パン・動物", tag:"new" },
+    { n:"茶",            hex:"63351D", role:"髪・木・濃影", tag:"" },
+    { n:"黄",            hex:"F5EA43", role:"花・光・食べ物", tag:"" },
+    { n:"橙",            hex:"E76A00", role:"果実・夕日", tag:"" },
+    { n:"赤",            hex:"C61815", role:"花・赤系全般", tag:"" },
+    { n:"ピンク",        hex:"FE758F", role:"花・頬・差し色", tag:"" },
+    { n:"紫",            hex:"5C1E7E", role:"花・夜・差し色", tag:"" },
+    { n:"ライム",        hex:"C0FF00", role:"テニスボール・蛍光・葉明部", tag:"keep" },
+    { n:"中間グリーン",  hex:"3AA655", role:"草・芝・普通の葉", tag:"new" },
+    { n:"深緑",          hex:"016E34", role:"葉の暗部・常緑", tag:"" },
+    { n:"シアン",        hex:"0289CA", role:"空・水面", tag:"" },
+    { n:"紺",            hex:"1E254F", role:"影の青・夜空", tag:"" },
+  ];
+  const tagHtml = t => t==="new" ? '<span class="tag tag-new">NEW</span>'
+                    : t==="keep" ? '<span class="tag tag-keep">特殊色</span>' : '';
+  document.getElementById('grid').innerHTML = colors.map((c,i)=>`
+    <div class="row">
+      <div class="sw" style="background:#${c.hex}"></div>
+      <div class="num">${String(i+1).padStart(2,'0')}</div>
+      <div class="name">${c.n}${tagHtml(c.tag)}</div>
+      <div class="role">${c.role}</div>
+      <div class="hex">#${c.hex}</div>
+    </div>`).join('');
+</script>
+</body>
+</html>
