@@ -19,60 +19,56 @@
   .tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
   .tag-new { background: #ffe9c2; color: #9a5b00; }
   .tag-keep { background: #e4eefc; color: #2a5a9a; }
+  .tag-metal { background: linear-gradient(135deg,#e9c46a,#fff3c0,#d4af37); color: #6b4e00; }
   .legend { margin-top: 18px; font-size: 12px; color: #666; line-height: 1.7; }
   .legend b { color: #1a1a1a; }
 </style>
 </head>
 <body>
   <h1>刺繍糸 15色 — モチーフ汎用パレット</h1>
-  <p class="sub">混色できない前提で「色相環を均等に埋める＋穴をなくす」設計。青を3→2に絞り、中間グリーンと肌/タンを追加。</p>
+  <p class="sub">混色できない前提で、色相環を均等に埋めつつ、無印の実用色を参考にメタリック（金・銀）を採用した15色。</p>
 
-  <p class="sub" style="margin-top:18px;font-weight:600;color:#1a1a1a;">確定 14色</p>
+  <p class="sub" style="margin-top:18px;font-weight:600;color:#1a1a1a;">確定 15色</p>
   <div class="grid" id="grid"></div>
 
   <div class="legend">
-    <span class="tag tag-keep">特殊色</span> 混色不可・死守<br>
-    <b>陰影ペア:</b> ライム＋深緑（緑2段） / シアン＋青（水色・青） / 肌タン＋茶（肌・木） / ピンク＋赤（花・頬）
+    <span class="tag tag-keep">特殊色</span> 混色不可・死守 ／ <span class="tag tag-metal">メタリック</span> 他色で再現不可・装飾の華<br>
+    <b>陰影ペア:</b> ライム＋深緑（緑2段） / シアン＋青（水色・青） / 肌タン＋茶（肌・木） / ピンク＋赤（花・頬）<br>
+    <b>メモ:</b> マットなグレーは外し、その役割は銀に統合（無印と同じ考え方）。
   </div>
 
-  <p class="sub" style="margin-top:28px;font-weight:600;color:#1a1a1a;">残り1枠の候補 — どれか1色を15番に</p>
-  <div class="grid" id="cand"></div>
-
 <script>
+  const GOLD   = "linear-gradient(135deg,#a67c00 0%,#ffd75e 24%,#d4af37 50%,#fff0a8 70%,#b8860b 100%)";
+  const SILVER = "linear-gradient(135deg,#8e9192 0%,#ffffff 28%,#c4c7c8 52%,#eaecee 72%,#9aa0a1 100%)";
   const colors = [
-    { n:"白",            hex:"FFFFFF", role:"ハイライト・目・白地", tag:"" },
-    { n:"黒",            hex:"000000", role:"輪郭・最暗部", tag:"" },
-    { n:"グレー",        hex:"8A8D8A", role:"金属・石・陰", tag:"" },
-    { n:"肌/タン",       hex:"E8B98A", role:"肌・木・パン・動物", tag:"new" },
-    { n:"茶",            hex:"63351D", role:"髪・木・濃影", tag:"" },
-    { n:"黄",            hex:"F5EA43", role:"花・光・食べ物", tag:"" },
-    { n:"橙",            hex:"E76A00", role:"果実・夕日", tag:"" },
-    { n:"赤",            hex:"C61815", role:"花・赤系全般", tag:"" },
-    { n:"ピンク",        hex:"FE758F", role:"花・頬・差し色", tag:"" },
-    { n:"紫",            hex:"5C1E7E", role:"花・夜・差し色", tag:"" },
-    { n:"ライム",        hex:"C0FF00", role:"テニスボール・蛍光・葉明部", tag:"keep" },
-    { n:"深緑",          hex:"016E34", role:"葉の暗部・常緑", tag:"" },
-    { n:"シアン",        hex:"0289CA", role:"空・水面・水色", tag:"" },
-    { n:"青",            hex:"0D47A1", role:"青系全般・空・海", tag:"new" },
+    { n:"白",      hex:"FFFFFF", role:"ハイライト・目・白地", tag:"" },
+    { n:"黒",      hex:"000000", role:"輪郭・最暗部", tag:"" },
+    { n:"肌/タン", hex:"E8B98A", role:"肌・木・パン・動物", tag:"" },
+    { n:"茶",      hex:"63351D", role:"髪・木・濃影", tag:"" },
+    { n:"黄",      hex:"F5EA43", role:"花・光・食べ物", tag:"" },
+    { n:"橙",      hex:"E76A00", role:"果実・夕日", tag:"" },
+    { n:"赤",      hex:"C61815", role:"花・赤系全般", tag:"" },
+    { n:"ピンク",  hex:"FE758F", role:"花・頬・差し色", tag:"" },
+    { n:"紫",      hex:"5C1E7E", role:"花・夜・差し色", tag:"" },
+    { n:"ライム",  hex:"C0FF00", role:"テニスボール・蛍光・葉明部", tag:"keep" },
+    { n:"深緑",    hex:"016E34", role:"葉の暗部・常緑", tag:"" },
+    { n:"シアン",  hex:"0289CA", role:"空・水面・水色", tag:"" },
+    { n:"青",      hex:"0D47A1", role:"青系全般・空・海", tag:"" },
+    { n:"銀",      hex:"C4C7C8", role:"金属・銀・グレー役・装飾", tag:"metal", metal:SILVER },
+    { n:"金",      hex:"D4AF37", role:"エンブレム・星・装飾文字・金属", tag:"metal", metal:GOLD },
   ];
-  const candidates = [
-    { n:"ターコイズ/エメラルド", hex:"00A99D", role:"水・宝石・南国・爽やか（緑↔青の穴）" },
-    { n:"マゼンタ/濃ピンク",     hex:"D6006E", role:"花・ロゴ・ポップ（鮮やかな赤紫）" },
-    { n:"ワインレッド",          hex:"7A1F2B", role:"ヴィンテージ・ワイン・落ち着いた赤" },
-    { n:"ゴールド/からし",       hex:"D4A017", role:"エンブレム・星・メダル・秋（参考）" },
-  ];
-  const tagHtml = t => t==="new" ? '<span class="tag tag-new">NEW</span>'
-                    : t==="keep" ? '<span class="tag tag-keep">特殊色</span>' : '';
-  const rowHtml = (c,i,showNum) => `
+  const tagHtml = t => t==="new"  ? '<span class="tag tag-new">NEW</span>'
+                    : t==="keep"  ? '<span class="tag tag-keep">特殊色</span>'
+                    : t==="metal" ? '<span class="tag tag-metal">メタリック</span>' : '';
+  const rowHtml = (c,i) => `
     <div class="row">
-      <div class="sw" style="background:#${c.hex}"></div>
-      <div class="num">${showNum ? String(i+1).padStart(2,'0') : '＋'}</div>
+      <div class="sw" style="background:${c.metal || '#'+c.hex}"></div>
+      <div class="num">${String(i+1).padStart(2,'0')}</div>
       <div class="name">${c.n}${tagHtml(c.tag)}</div>
       <div class="role">${c.role}</div>
       <div class="hex">#${c.hex}</div>
     </div>`;
-  document.getElementById('grid').innerHTML = colors.map((c,i)=>rowHtml(c,i,true)).join('');
-  document.getElementById('cand').innerHTML = candidates.map((c,i)=>rowHtml(c,i,false)).join('');
+  document.getElementById('grid').innerHTML = colors.map((c,i)=>rowHtml(c,i)).join('');
 </script>
 </body>
 </html>
